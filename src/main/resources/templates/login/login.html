@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>ログインページ</title>
+ <meta charset="UTF-8"></meta>
+ 
+ <link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
+ rel="stylesheet"></link>
+ <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+ <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+ 
+ <title>ログイン</title>
 </head>
-<body>
 
+<body>
+   <div class="mx-auto" style="width: 500px;">
+      <div class="page-header">
+        <h1 class="text-center">ログイン</h1>
+      </div>
+      <form method="post" th:action="@{/login}">
+	    <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+	      th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger">
+	        ログインエラーメッセージ
+	    </p>
+        <div class="form-group">
+           <label for="inputEmail">メールアドレス</label>
+           <input type="text"　class="form-control" name="email"/>
+         </div>
+         <div class="form-group">
+           <label for="inputPassword">パスワード</label>
+           <input type="password"　class="form-control" name="password"/>
+         </div>	 
+         <div class="mx-auto" style="width: 100px;">
+	       <button class="btn btn-primary" type="submit">
+	         ログイン
+	       </button>
+        </div>   
+      </form><br>
+      <div class="mx-auto" style="width: 300px;">
+    　  <a th:href="@{'/signup'}">ユーザー新規登録はこちら</a>    
+      </div>  
+   </div>
 </body>
 </html>

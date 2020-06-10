@@ -2,9 +2,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ホーム</title>
 </head>
 <body>
-
+   <div class="mx-auto" style="width: 500px;">
+      <div class="page-header">
+        <h1 class="text-center">ホーム</h1>
+      </div>
+   </div>
+   
+   <form method="post" th:action="@{/logout}">
+   <button class="btn btn-link pull-right navbar-brand" type="submit">
+     ログアウト
+   </button>
+ 　</form>
+ 
+  <a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.id}}">
+     詳細
+   </a>
+   
 </body>
 </html>

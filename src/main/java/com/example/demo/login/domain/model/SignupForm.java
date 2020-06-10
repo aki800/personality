@@ -13,6 +13,8 @@ import lombok.Data;
 @Data
 public class SignupForm {
 	
+	private int id;
+	
 	@NotBlank(groups = ValidGroup1.class)
 	@Email(groups = ValidGroup2.class)
 	private String email;
