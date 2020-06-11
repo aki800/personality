@@ -28,8 +28,9 @@ UserService userService;
 	@GetMapping("/home")
 	public String getHome(Model model, Principal principal) {
 		User user = userService.select(principal.getName());
-		model.addAttribute(user);
-		return "home";
+		model.addAttribute("user", user);
+		model.addAttribute("contents", "/home :: home_contents");
+		return "homeLayout";
 				
 		
 	}
