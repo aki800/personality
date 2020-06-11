@@ -87,8 +87,10 @@ public class UserController {
 			form.setBirthday(user.getBirthday());
 			form.setStatus(user.getStatus());
 			form.setProfile(user.getProfile());
-			model.addAttribute("signupForm", form);	
-		return "login/userDetail";		
+			model.addAttribute("signupForm", form);
+			model.addAttribute("user",user);
+		model.addAttribute("contents", "login/userDetail :: userDetail_contents");
+		return "homeLayout";		
 	}
 	
 	@PostMapping(value = "/userDetail", params = "update")
@@ -108,7 +110,7 @@ public class UserController {
 			model.addAttribute("result", "ユーザー情報を編集しました");
 		} else {
 			model.addAttribute("result", "ユーザー情報の編集に失敗しました");
-		}		
+		}
 		return getUserDetail(form, model, form.getId());
 	}
 	
