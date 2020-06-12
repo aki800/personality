@@ -1,79 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"></meta>
-  
-  <link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
-  rel="stylesheet"></link>
-  <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-  <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
-  
-  <title>アカウント詳細</title>
-  </head>
-  
-  <body>
-  	<div th:fragment="userDetail_contents">
-	    <div class="mx-auto" style="width: 500px;">
-	    <div class="page-header"> 
-	        <h1 class="text-center">アカウント詳細</h1>
-	    </div>
-	      <label class="text-info" th:text="${result}">結果表示</label>
-	      <form method="post" th:action="@{/userDetail}" th:object="${signupForm}">
-	              <div class="form-group">
-	                <input type="hidden" class="form-control" th:field="*{id}" id="inputEmail"/>
-	              </div>
-	              <div class="form-group">
-	                <label for="inputEmail">メールアドレス</label>
-	                <input type="text" class="form-control" th:field="*{email}" id="inputEmail"/>
-		            <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-		              email error
-		            </span>
-	              </div>
-	
-	              <div class="form-group">
-	                <label for="inputPassword">パスワード</label>
-	                <input type="password" class="form-control" th:field="*{password}" placeholder="8桁以上の英数字を入力して下さい" />
-	                <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-	                  password error
-	                </span>
-	              </div>
-	              <div class="form-group">
-	              　<label for="inputNickname">ニックネーム</label>
-	                <input type="text" class="form-control" th:field="*{nickname}" />
-	                <span class="text-danger" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">
-	                  Nickname error
-	                </span>               
-	              </div>
-	              <div class="form-group">
-	              　<label for="inputAge">誕生日</label>
-	                <input type="text" class="form-control" th:field="*{birthday}"　placeholder="例: 2000/04/01" />
-	            　　<span class="text-danger" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">
-	                  birthday error
-	                </span>        
-	              </div>
-	              <div class="form-group">
-	                <label for="selectStatus">職業</label>
-	                <select class="form-control" th:field="*{status}">
-	                　<option th:each="item:${selectStatus}" th:text="${item}" th:value="${item}"></option>
-	               　</select>
-	              </div>
-	              <div class="form-group">
-	                <label for="inputProfile">プロフィール欄</label>
-	                <textarea class="form-control" rows="5" th:field="*{profile}"></textarea>
-	              </div>
-	        
-	        <div class="mx-auto" style="width: 100px;">
-		       <button class="btn btn-primary" type="submit" name="update">
-		         編集
-		       </button>
-	        </div>
-	        <div class="mx-auto" style="width: 100px;">
-	           <button class="btn btn-primary" type="submit" name="delete">
-		         退会
-		       </button>
-		    </div>
-	      </form>
-	    </div>
-	  </div>
-  </body>
-</html> -->
+<meta charset="UTF-8">
+<title>マイページ</title>
+</head>
+<body>
+<div th:fragment="userDetail_contents">
+</div>
+</body>
+</html>

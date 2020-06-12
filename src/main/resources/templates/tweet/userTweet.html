@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Myお悩み相談</title>
+</head>
+<body>
+  <div th:fragment="userTweet_contents">
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">Myお悩み投稿</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr  th:each="tweet: ${tweets}">
+	      <td th:text="${tweet.text}" />
+	     <td>
+	       <a class="btn btn-primary" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a>
+	     </td>
+	    </tr>
+	  </tbody>
+	</table>
+  </div>
+</body>
+</html>

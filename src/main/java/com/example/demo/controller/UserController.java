@@ -1,4 +1,4 @@
-package com.example.demo.login.controller;
+package com.example.demo.controller;
 
 import java.util.List;
 import java.security.Principal;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.login.domain.model.GroupOrder;
-import com.example.demo.login.domain.model.SignupForm;
-import com.example.demo.login.domain.model.User;
-import com.example.demo.login.domain.service.UserService;
+import com.example.demo.domain.model.GroupOrder;
+import com.example.demo.domain.model.SignupForm;
+import com.example.demo.domain.model.User;
+import com.example.demo.domain.service.UserService;
 
 @Controller
 public class UserController {
@@ -76,6 +76,14 @@ public class UserController {
 	
 	@GetMapping("/userDetail/{id}")
 	public String getUserDetail(@ModelAttribute SignupForm form, Model model, @PathVariable("id") int id) {
+		User user = userService.select(id);
+		model.addAttribute("user", user);
+		model.addAttribute("contents", "login/userDetail :: userDetail_contents");
+		return "myPageLayout";		
+	}
+	
+	@GetMapping("/userEdit/{id}")
+	public String getUserEdit(@ModelAttribute SignupForm form, Model model, @PathVariable("id") int id) {
 		selectStatus = initSelectStatus();
 		model.addAttribute("selectStatus", selectStatus);
 		
@@ -89,12 +97,12 @@ public class UserController {
 			form.setProfile(user.getProfile());
 			model.addAttribute("signupForm", form);
 			model.addAttribute("user",user);
-		model.addAttribute("contents", "login/userDetail :: userDetail_contents");
-		return "homeLayout";		
-	}
+		model.addAttribute("contents", "login/userEdit :: userEdit_contents");
+		return "myPageLayout";		
+	}	
 	
-	@PostMapping(value = "/userDetail", params = "update")
-	public String postUserDetailUpdate(@ModelAttribute SignupForm form, Model model){		
+	@PostMapping(value = "/userEdit", params = "update")
+	public String postUserEditUpdate(@ModelAttribute SignupForm form, Model model){		
 		User user = new User();
 		System.out.println(form);
 		user.setId(form.getId());
@@ -114,8 +122,8 @@ public class UserController {
 		return getUserDetail(form, model, form.getId());
 	}
 	
-	@PostMapping(value = "/userDetail", params = "delete")
-	public String postUserDetailDelete(@ModelAttribute SignupForm form, Model model) {
+	@PostMapping(value = "/userEdit", params = "delete")
+	public String postUserEditDelete(@ModelAttribute SignupForm form, Model model) {
 
 		boolean result = userService.delete(form.getId());
 		if (result == true) {
