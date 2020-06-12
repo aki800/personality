@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <div th:fragment="tweetEdit_contents">
+   <div class="mx-auto" style="width: 500px;">
+      <div class="page-header">
+        <h1 class="text-center">お悩み投稿編集</h1>
+      </div>
+      <label class="text-info" th:text="${result}">結果表示</label>
+      <form method="post" th:action="@{/tweetEdit}" th:object="${tweetForm}">
+        <div class="form-group">
+          <input class="form-control"  type="hidden" th:field="*{id}"></input>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" rows="10" th:field="*{text}"></textarea>
+        </div>
+        
+        <div class="mx-auto" style="width: 100px;">
+	       <button class="btn btn-primary" type="submit" name="update">
+	         編集
+	       </button>
+	       <button class="btn btn-primary" type="submit" name="delete">
+	         削除
+	       </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

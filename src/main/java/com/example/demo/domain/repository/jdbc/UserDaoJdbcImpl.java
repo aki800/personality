@@ -1,4 +1,4 @@
-package com.example.demo.login.domain.repository.jdbc;
+package com.example.demo.domain.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -6,8 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.login.domain.model.User;
-import com.example.demo.login.domain.repository.UserDao;
+import com.example.demo.domain.model.User;
+import com.example.demo.domain.repository.UserDao;
 
 
 @Repository("UserDaoJdbcImpl")

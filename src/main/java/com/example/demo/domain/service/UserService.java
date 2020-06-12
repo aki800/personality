@@ -1,4 +1,4 @@
-package com.example.demo.login.domain.service;
+package com.example.demo.domain.service;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.login.domain.model.User;
-import com.example.demo.login.domain.repository.UserDao;
-import com.example.demo.login.domain.repository.mybatis.UserMapper;
+import com.example.demo.domain.model.User;
+import com.example.demo.domain.repository.UserDao;
+import com.example.demo.domain.repository.mybatis.UserMapper;
 
 @Transactional
 @Service

@@ -1,16 +1,13 @@
-package com.example.demo.login.domain.repository.mybatis;
+package com.example.demo.domain.repository.mybatis;
 
-import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.demo.login.domain.model.User;
+import com.example.demo.domain.model.User;
 
 @Mapper
 public interface UserMapper {
@@ -66,4 +63,6 @@ public interface UserMapper {
 	
 	@Delete("DELETE FROM authorities WHERE id = #{id}")
 	public boolean delete(int id);
+	
+
 }

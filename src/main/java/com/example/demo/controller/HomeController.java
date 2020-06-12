@@ -1,4 +1,4 @@
-package com.example.demo.home.controller;
+package com.example.demo.controller;
 
 import java.security.Principal;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.login.domain.model.SignupForm;
-import com.example.demo.login.domain.model.User;
-import com.example.demo.login.domain.repository.mybatis.UserMapper;
-import com.example.demo.login.domain.service.UserService;
+import com.example.demo.domain.model.SignupForm;
+import com.example.demo.domain.model.User;
+import com.example.demo.domain.repository.mybatis.UserMapper;
+import com.example.demo.domain.service.UserService;
 
 @Controller
 public class HomeController {
@@ -34,6 +34,8 @@ UserService userService;
 				
 		
 	}
+	
+	
 	
 
 }
