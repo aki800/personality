@@ -38,7 +38,4 @@ public class User {
 	
 	private String profile;
 		
-    @OneToMany(mappedBy = "user")
-    private List<Tweet> listTweet;
-
 }

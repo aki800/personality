@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import java.security.Principal;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.domain.model.Comment;
+import com.example.demo.domain.model.CommentForm;
 import com.example.demo.domain.model.SignupForm;
 import com.example.demo.domain.model.Tweet;
 import com.example.demo.domain.model.TweetForm;
 import com.example.demo.domain.model.User;
+import com.example.demo.domain.service.CommentService;
 import com.example.demo.domain.service.TweetService;
 import com.example.demo.domain.service.UserService;
 
@@ -23,10 +28,11 @@ import com.example.demo.domain.service.UserService;
 public class TweetController {
 	
 	@Autowired
-	TweetService tweetService;
-	
+	TweetService tweetService;	
 	@Autowired
-	UserService userService;
+	UserService userService;	
+	@Autowired
+	CommentService commentService;
 	
 	@GetMapping("/tweetCreate")
 	public String getTweetCreate(@ModelAttribute TweetForm form, Model model, Principal principal) {
@@ -39,6 +45,7 @@ public class TweetController {
 	@PostMapping("/tweetCreate")
 	public String postTweetCreate(@ModelAttribute TweetForm form, BindingResult bindingResult, Model model,  Principal principal) {
 	  User user = userService.select(principal.getName());
+	  
 	  if(bindingResult.hasErrors()) {
 		return getTweetCreate(form, model, principal);
 	  }
@@ -47,8 +54,7 @@ public class TweetController {
 	  Tweet tweet = new Tweet();
 	  
 	  tweet.setText(form.getText());
-	  tweet.setUser(user);
-	  System.out.println(tweet.getUser().getId());
+	  tweet.setUserId(user.getId());
 	  boolean result = tweetService.insert(tweet);
 	  
 	  if(result == true) {
@@ -70,6 +76,105 @@ public class TweetController {
 		model.addAttribute("contents", "/tweet/userTweet :: userTweet_contents");		
 		return "myPageLayout";
 	}
+	
+	@GetMapping("/tweetDetail/{id}")
+	public String getTweetDetail(CommentForm form, Model model, @PathVariable("id") int id, Principal principal) {
+		User user = userService.select(principal.getName());
+		model.addAttribute("user", user);	
+		
+		Tweet tweet = tweetService.selectOne(id);
+		tweet.setId(id);
+		model.addAttribute(tweet);
+		
+		form.setTweetId(id);
+		model.addAttribute("commentform", form);		
+		
+		//コメント一覧を表示
+		List<Comment> comments = commentService.selectInOneTweet(id);
+		model.addAttribute("comments", comments);		
+		
+		
+		model.addAttribute("contents", "/tweet/tweetDetail :: tweetDetail_contents");		
+		return "homeLayout";
+		
+	}	
+	
+	//コメント投稿
+	@PostMapping(value="/tweetDetail", params="create")
+	public String PostTweetDetail(@ModelAttribute CommentForm form,  Model model, Principal principal) {
+		User user = userService.select(principal.getName());
+		
+		Comment comment = new Comment();		
+		comment.setText(form.getText());
+		comment.setTweetId(form.getTweetId());
+		comment.setUserId(user.getId());
+			
+		System.out.println(comment);
+		boolean result = commentService.insert(comment);
+		  if(result == true) {
+			System.out.println("insert成功");
+			model.addAttribute("result", "コメントを投稿しました");
+		  } else {
+			System.out.println("insert失敗");
+			model.addAttribute("result", "コメント投稿に失敗しました");
+		  }
+		  
+		
+        return getTweetDetail(form, model, form.getTweetId(), principal);		
+		
+	}
+	
+	@GetMapping("/commentEdit/{id}")
+	public String getCommentEdit(@ModelAttribute CommentForm form, Model model, @PathVariable("id") int id, Principal principal) {
+		User user = userService.select(principal.getName());
+		model.addAttribute("user", user);
+		
+		Comment comment = commentService.selectOne(id);
+		form.setId(comment.getId());
+		form.setText(comment.getText());
+		form.setTweetId(comment.getTweetId());
+		model.addAttribute("commentForm", form);
+		
+		Tweet tweet = tweetService.selectOne(comment.getTweetId());
+		model.addAttribute(tweet);
+
+		//コメント一覧を表示
+		List<Comment> comments = commentService.selectInOneTweet(comment.getTweetId());
+		model.addAttribute("comments", comments);		
+		model.addAttribute("contents", "/tweet/commentEdit :: commentEdit_contents");		
+		return "homeLayout";
+		
+	}
+	
+	@PostMapping(value="/commentEdit", params="update")
+	public String postCommentEditUpdate(@ModelAttribute CommentForm form, Model model, Principal principal) {
+		Comment comment = new Comment();
+		comment.setId(form.getId());
+		comment.setText(form.getText());
+		boolean result = commentService.update(comment);
+		
+		if (result == true) {
+			model.addAttribute("result", "コメントを編集しました");
+		} else {
+			model.addAttribute("result", "コメントの編集に失敗しました");
+		}
+		return getTweetDetail(form, model, form.getTweetId(), principal);		
+	}
+	
+	@PostMapping(value = "/commentEdit", params = "delete")
+	public String postCommentEditDelete(@ModelAttribute CommentForm form, Model model, Principal principal) {
+		boolean result = commentService.delete(form.getId());
+		
+		if (result == true) {
+			model.addAttribute("result", "コメントを削除しました");
+			User user = userService.select(principal.getName());
+			return getTweetDetail(form, model, form.getTweetId(), principal);
+		} else {
+			model.addAttribute("result", "コメントの削除に失敗しました");
+			return getCommentEdit(form, model, form.getId(), principal);		
+		}
+	}
+	
 	@GetMapping("/tweetEdit/{id}")
 	public String getTweetEdit(@ModelAttribute TweetForm form, Model model, @PathVariable("id") int id, Principal principal) {
 		User user = userService.select(principal.getName());
@@ -78,14 +183,18 @@ public class TweetController {
 		Tweet tweet = tweetService.selectOne(id);
 		form.setId(id);
 		form.setText(tweet.getText());
-		model.addAttribute("TweetForm", form);	
-			
+		model.addAttribute("TweetForm", form);
+		
+		//コメント一覧を表示
+		List<Comment> comments = commentService.selectInOneTweet(id);
+		model.addAttribute("comments", comments);					
+		
 		model.addAttribute("contents", "/tweet/tweetEdit :: tweetEdit_contents");		
 		return "myPageLayout";
-	}
+	}		
 	
 	@PostMapping(value = "/tweetEdit", params = "update")
-	public String postTweetEditUpdate(@ModelAttribute TweetForm form, Model model,  Principal principal) {
+	public String postTweetEditUpdate(@ModelAttribute TweetForm form, BindingResult bindingResult,  Model model,  Principal principal) {
 		
 		Tweet tweet = new Tweet();
 		tweet.setId(form.getId());
@@ -100,6 +209,7 @@ public class TweetController {
 		return getTweetEdit(form, model, tweet.getId(), principal);		
 		
 	}
+	
 	
 	@PostMapping(value = "/tweetEdit", params = "delete")
 	public String postTweetEditDelete(@ModelAttribute TweetForm form, Model model, Principal principal) {
