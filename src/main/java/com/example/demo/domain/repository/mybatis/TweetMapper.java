@@ -18,20 +18,20 @@ public interface TweetMapper {
 	
 	@Insert("INSERT INTO tweet ("
 			+ "text,"
-			+ " authorities_id)"
+			+ " user_id)"
 			+ " VALUES ("
 			+ " #{text},"
-			+ " #{id})")
-	public boolean insert(@Param("text") String text, @Param("id") Integer id);
+			+ " #{userId})")
+	public boolean insert(Tweet tweet);
 	
 	@Select("SELECT id,"
 	        + " text"
 	        + " FROM tweet"
-	        + " WHERE authorities_id = #{id}")
+	        + " WHERE user_id = #{id}")
 	public List<Tweet> selectInAuthenticatedUser(int id);
 	
 	@Select("SELECT id,"
-	        + " text"
+			+ " text"
 	        + " FROM tweet"
 	        + " WHERE id = #{id}")
 	public Tweet selectOne(int id);

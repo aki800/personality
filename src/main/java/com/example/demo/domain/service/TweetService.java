@@ -17,9 +17,8 @@ public class TweetService {
 	TweetMapper tweetMapper;
 	
 	public boolean insert(Tweet tweet){
-		String text = tweet.getText();
-		Integer id = tweet.getUser().getId();
-		return tweetMapper.insert(text, id);
+
+		return tweetMapper.insert(tweet);
 	}
 	
 	public List<Tweet> selectInAuthenticatedUser(int id) {

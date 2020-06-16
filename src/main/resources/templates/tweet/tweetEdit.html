@@ -18,16 +18,29 @@
         <div class="form-group">
           <textarea class="form-control" rows="10" th:field="*{text}"></textarea>
         </div>
-        
-        <div class="mx-auto" style="width: 100px;">
-	       <button class="btn btn-primary" type="submit" name="update">
-	         編集
+       <button class="btn btn-primary" type="submit" name="update">
+         編集
+       </button>
+       <button class="btn btn-primary" type="submit" name="delete">
+         削除
 	       </button>
-	       <button class="btn btn-primary" type="submit" name="delete">
-	         削除
-	       </button>
-        </div>
       </form>
+      
+      <table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">コメント一覧</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr  th:each="comment: ${comments}">
+		      <td th:text="${comment.text}" />
+		      <td>
+			      <a class="btn btn-primary" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
+		      </td>  		           
+		    </tr>
+		  </tbody>
+	   </table>
     </div>
   </div>
 
