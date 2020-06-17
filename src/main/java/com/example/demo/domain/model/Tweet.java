@@ -23,5 +23,5 @@ public class Tweet {
 	
 	@Column(name  = "user_id")
     private Integer userId;
-    
+	
 }
