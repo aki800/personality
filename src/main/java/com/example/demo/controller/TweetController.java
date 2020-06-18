@@ -190,7 +190,7 @@ public class TweetController {
 		model.addAttribute("comments", comments);					
 		
 		model.addAttribute("contents", "/tweet/tweetEdit :: tweetEdit_contents");		
-		return "myPageLayout";
+		return "homeLayout";
 	}		
 	
 	@PostMapping(value = "/tweetEdit", params = "update")

@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -26,7 +27,7 @@ public class SignupForm {
 	
 	@NotBlank(groups = ValidGroup1.class)
 	private String nickname;
-	
+		
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date birthday;
 	
