@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 
@@ -49,7 +50,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/signup")
-	public String postSignup(@ModelAttribute @Validated(GroupOrder.class) SignupForm form,  BindingResult bindingResult, Model model) {
+	public String postSignup(@ModelAttribute @Validated(GroupOrder.class) SignupForm form,  BindingResult bindingResult, Model model) throws IOException {
 		if(bindingResult.hasErrors()) {
 			return getSignup(form, model);
 		}
@@ -101,7 +102,7 @@ public class UserController {
 		return "myPageLayout";		
 	}	
 	
-	@PostMapping(value = "/userEdit", params = "update")
+	@PostMapping(value= "/userEdit", params= "update")
 	public String postUserEditUpdate(@ModelAttribute SignupForm form, Model model){		
 		User user = new User();
 		System.out.println(form);

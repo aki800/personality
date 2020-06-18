@@ -28,7 +28,7 @@ xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
         <a class="nav-link" th:href="@{/tweetCreate}">お悩み投稿 <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{'/userDetail/' + ${user.id}}">マイページ</a>
+        <a class="nav-link" th:href="@{'/userDetail/' + ${user.id}}"  th:text="${user.nickname}"></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
@@ -50,5 +50,10 @@ xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
     <a class="nav-link" th:href="@{'/userEdit/' + ${user.id}}">アカウント編集</a>
   </li>
  </ul> 
+ <div class="float-left">
+   <div th:text="${user.nickname}"></div>
+   <div th:text="${user.status}"></div>
+   <div th:text="${user.profile}"></div>   
+ </div>
  <div th:include="__${contents}__"></div>
 </body>
