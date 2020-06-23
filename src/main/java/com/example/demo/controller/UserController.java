@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.domain.model.GroupOrder;
 import com.example.demo.domain.model.SignupForm;
 import com.example.demo.domain.model.User;
+import com.example.demo.domain.model.UserUpdateForm;
 import com.example.demo.domain.service.UserService;
 
 @Controller
@@ -78,7 +79,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/userDetail/{id}")
-	public String getUserDetail(@ModelAttribute SignupForm form, Model model, @PathVariable("id") int id) {
+	public String getUserDetail(Model model, @PathVariable("id") int id) {
 		User user = userService.select(id);
 		model.addAttribute("user", user);
 		model.addAttribute("contents", "login/userDetail :: userDetail_contents");
@@ -86,31 +87,33 @@ public class UserController {
 	}
 	
 	@GetMapping("/userEdit/{id}")
-	public String getUserEdit(@ModelAttribute SignupForm form, Model model, @PathVariable("id") int id) {
+	public String getUserEdit(@ModelAttribute UserUpdateForm form, Model model, @PathVariable("id") int id) {
 		selectStatus = initSelectStatus();
 		model.addAttribute("selectStatus", selectStatus);
 		
 			User user = userService.select(id);
 			form.setId(user.getId());
 			form.setEmail(user.getEmail());
-			form.setPassword(user.getPassword());
 			form.setNickname(user.getNickname());
 			form.setBirthday(user.getBirthday());
 			form.setStatus(user.getStatus());
 			form.setProfile(user.getProfile());
-			model.addAttribute("signupForm", form);
+			model.addAttribute("userUpdateForm", form);
 			model.addAttribute("user",user);
+			System.out.println(user);
 		model.addAttribute("contents", "login/userEdit :: userEdit_contents");
 		return "myPageLayout";		
 	}	
 	
 	@PostMapping(value= "/userEdit", params= "update")
-	public String postUserEditUpdate(@ModelAttribute SignupForm form, Model model){		
+	public String postUserEditUpdate(@ModelAttribute @Validated(GroupOrder.class) UserUpdateForm form, BindingResult bindingResult, Model model){	
+		if(bindingResult.hasErrors()) {
+			return getUserEdit(form, model, form.getId());
+		}		
 		User user = new User();
 		System.out.println(form);
 		user.setId(form.getId());
 		user.setEmail(form.getEmail());
-		user.setPassword(form.getPassword());
 		user.setNickname(form.getNickname());
 		user.setBirthday(form.getBirthday());
 		user.setStatus(form.getStatus());
@@ -122,7 +125,7 @@ public class UserController {
 		} else {
 			model.addAttribute("result", "ユーザー情報の編集に失敗しました");
 		}
-		return getUserDetail(form, model, form.getId());
+		return getUserEdit(form, model, form.getId());
 	}
 	
 	@PostMapping(value = "/userEdit", params = "delete")
@@ -134,7 +137,7 @@ public class UserController {
 			return getLogin(); 
 		} else {
 			model.addAttribute("result", "退会に失敗しました");
-			return getUserDetail(form, model, form.getId());
+			return getUserDetail(model, form.getId());
 		}
 		
 	}

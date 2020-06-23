@@ -1,28 +1,21 @@
 package com.example.demo.domain.model;
 
-
 import java.util.Date;
 
-import javax.validation.constraints.*;
-
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
 @Data
-public class SignupForm {
-	
+public class UserUpdateForm {
+
 	private int id;
 	
 	@NotBlank(groups = ValidGroup1.class)
 	@Email(groups = ValidGroup2.class)
 	private String email;
-	
-	@NotBlank(groups = ValidGroup1.class)
-	@Length(min = 8, max = 100, groups = ValidGroup2.class)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup3.class)
-	private String password;
 	
 	@NotBlank(groups = ValidGroup1.class)
 	private String nickname;

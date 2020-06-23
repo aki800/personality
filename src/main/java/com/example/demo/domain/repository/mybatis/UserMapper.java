@@ -42,7 +42,6 @@ public interface UserMapper {
 	
 	@Select("SELECT id,"
 	+ " username AS email," //email
-	+ " authority AS password," //password
 	+ " nickname,"
 	+ " birthday,"
 	+ " status,"
@@ -53,7 +52,6 @@ public interface UserMapper {
 	
 	@Update("UPDATE authorities SET"
 	+ " username = #{email},"  //email
-	+ " authority = #{password}," //password
 	+ " nickname = #{nickname},"
 	+ " birthday = #{birthday},"
 	+ " status = #{status},"

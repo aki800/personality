@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.domain.model.Comment;
 import com.example.demo.domain.model.CommentForm;
+import com.example.demo.domain.model.GroupOrder;
 import com.example.demo.domain.model.Tweet;
 import com.example.demo.domain.model.TweetForm;
 import com.example.demo.domain.model.User;
@@ -49,7 +51,7 @@ public class TweetController {
 	}
 	
 	@PostMapping("/tweetCreate")
-	public String postTweetCreate(@ModelAttribute TweetForm form, BindingResult bindingResult, Model model,  Principal principal) {
+	public String postTweetCreate(@ModelAttribute @Validated TweetForm form, BindingResult bindingResult, Model model,  Principal principal) {
 	  User user = userService.select(principal.getName());
 	  
 	  if(bindingResult.hasErrors()) {
@@ -108,7 +110,10 @@ public class TweetController {
 	
 	//コメント投稿
 	@PostMapping(value="/tweetDetail", params="create")
-	public String PostTweetDetail(@ModelAttribute CommentForm form,  Model model, Principal principal) {
+	public String PostTweetDetail(@ModelAttribute @Validated CommentForm form, BindingResult bindingResult,  Model model, Principal principal) {
+		if(bindingResult.hasErrors()) {
+			  return getTweetDetail(form, model, form.getTweetId(), principal);
+		 }			
 		User user = userService.select(principal.getName());
 		
 		Comment comment = new Comment();		
@@ -144,7 +149,7 @@ public class TweetController {
 		
 		Tweet tweet = tweetService.selectOne(comment.getTweetId());
 		model.addAttribute(tweet);
-
+		
 		//コメント一覧を表示
 		List<Comment> comments = commentService.selectInOneTweet(comment.getTweetId());
 		model.addAttribute("comments", comments);		
@@ -154,7 +159,11 @@ public class TweetController {
 	}
 	
 	@PostMapping(value="/commentEdit", params="update")
-	public String postCommentEditUpdate(@ModelAttribute CommentForm form, Model model, Principal principal) {
+	public String postCommentEditUpdate(@ModelAttribute @Validated CommentForm form, BindingResult bindingResult, Model model, Principal principal) {
+		if(bindingResult.hasErrors()) {
+			  return getCommentEdit(form, model, form.getId(), principal);
+		 }			
+		
 		Comment comment = new Comment();
 		comment.setId(form.getId());
 		comment.setText(form.getText());
@@ -190,7 +199,11 @@ public class TweetController {
 		Tweet tweet = tweetService.selectOne(id);
 		form.setId(id);
 		form.setText(tweet.getText());
+		form.setCharacterId(tweet.getCharacterId());
 		model.addAttribute("TweetForm", form);
+		
+		List<Chara> characters = charaService.selectAll();
+		model.addAttribute("characters", characters);
 		
 		//コメント一覧を表示
 		List<Comment> comments = commentService.selectInOneTweet(id);
@@ -201,11 +214,14 @@ public class TweetController {
 	}		
 	
 	@PostMapping(value = "/tweetEdit", params = "update")
-	public String postTweetEditUpdate(@ModelAttribute TweetForm form, BindingResult bindingResult,  Model model,  Principal principal) {
-		
+	public String postTweetEditUpdate(@ModelAttribute @Validated TweetForm form, BindingResult bindingResult,  Model model,  Principal principal) {
+		if(bindingResult.hasErrors()) {
+		  return getTweetEdit(form, model, form.getId(), principal);
+	    }		
 		Tweet tweet = new Tweet();
 		tweet.setId(form.getId());
 		tweet.setText(form.getText());
+		tweet.setCharacterId(form.getCharacterId());
 		boolean result = tweetService.update(tweet);
 		
 		if (result == true) {
@@ -219,7 +235,7 @@ public class TweetController {
 	
 	
 	@PostMapping(value = "/tweetEdit", params = "delete")
-	public String postTweetEditDelete(@ModelAttribute TweetForm form, Model model, Principal principal) {
+	public String postTweetEditDelete(@ModelAttribute @Validated TweetForm form, BindingResult bindingResult, Model model, Principal principal) {
 		boolean result = tweetService.delete(form.getId());
 
 		if (result == true) {
