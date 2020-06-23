@@ -25,6 +25,11 @@ public class TweetService {
 		return tweetMapper.selectInAuthenticatedUser(id);
 	}
 	
+	public List<Tweet> selectInCharacter(int id) {
+		return tweetMapper.selectInCharacter(id);
+	}
+	
+	
 	public Tweet selectOne(int id) {
 		return tweetMapper.selectOne(id);
 	}

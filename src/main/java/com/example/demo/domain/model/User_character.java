@@ -11,20 +11,18 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="tweet")
-public class Tweet {
-
+@Table(name="userCharacter")
+public class User_character {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length = 2000)
-	private String text;
+	@Column(name="user_id")
+	private Integer userId;
 	
-	@Column(name  = "user_id")
-    private Integer userId;
-	
-	@Column(name = "character_id")
+	@Column(name="character_id")
 	private Integer characterId;
+	
 	
 }
