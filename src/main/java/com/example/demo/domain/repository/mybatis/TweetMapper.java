@@ -42,13 +42,16 @@ public interface TweetMapper {
 	
 	
 	@Select("SELECT id,"
-			+ " text"
+			+ " text,"
+			+ " user_id AS userId,"
+			+ " character_id AS characterId"			
 	        + " FROM tweet"
 	        + " WHERE id = #{id}")
 	public Tweet selectOne(int id);
 	
 	@Update("UPDATE tweet SET"
-	+ " text = #{text}"  //email
+	+ " text = #{text},"  //email
+	+ " character_id = #{characterId}"		
 	+ " WHERE id = #{id}")
 	public boolean update(Tweet tweet);
 	
