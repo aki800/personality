@@ -58,7 +58,7 @@
                 <select class="form-control" th:field="*{status}">
                 　<option th:each="item:${selectStatus}" th:text="${item}" th:value="${item}"></option>
                　</select>
-              </div>
+              </div>             
               <div class="form-group">
                 <label for="inputProfile">プロフィール欄</label>
                 <textarea class="form-control" rows="5" th:field="*{profile}"></textarea>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリーごとの投稿一覧</title>
+</head>
+<body>
+  <div th:fragment="charaTweet_contents">
+  	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col" th:text="${chara.kind}"></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr  th:each="tweet: ${tweets}">
+	      <td th:text="${tweet.text}" />
+	     <td>
+	       <a class="btn btn-primary" th:href="@{'/tweetDetail/' + ${tweet.id}}" role="button">詳細</a>
+	     </td>	      
+	     <td>
+	       <a class="btn btn-primary" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a>
+	     </td>	     
+	    </tr>
+	  </tbody>
+	</table>
+  </div>
+
+</body>
+</html>

@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import java.security.Principal;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.domain.model.Comment;
 import com.example.demo.domain.model.CommentForm;
-import com.example.demo.domain.model.SignupForm;
 import com.example.demo.domain.model.Tweet;
 import com.example.demo.domain.model.TweetForm;
 import com.example.demo.domain.model.User;
+import com.example.demo.domain.model.Chara;
+import com.example.demo.domain.service.CharaService;
 import com.example.demo.domain.service.CommentService;
 import com.example.demo.domain.service.TweetService;
 import com.example.demo.domain.service.UserService;
@@ -33,11 +32,18 @@ public class TweetController {
 	UserService userService;	
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	CharaService charaService;
 	
 	@GetMapping("/tweetCreate")
 	public String getTweetCreate(@ModelAttribute TweetForm form, Model model, Principal principal) {
 		User user = userService.select(principal.getName());
 		model.addAttribute("user", user);		
+		
+		List<Chara> characters = charaService.selectAll();
+		model.addAttribute("characters", characters);
+		System.out.println(characters);
+		
 		model.addAttribute("contents", "/tweet/tweetCreate :: tweetCreate_contents");
 		return "homeLayout";
 	}
@@ -55,6 +61,7 @@ public class TweetController {
 	  
 	  tweet.setText(form.getText());
 	  tweet.setUserId(user.getId());
+	  tweet.setCharacterId(form.getCharacterId());
 	  boolean result = tweetService.insert(tweet);
 	  
 	  if(result == true) {

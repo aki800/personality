@@ -6,4 +6,5 @@ import lombok.Data;
 public class TweetForm {
 	private int id;
 	private String text;
+	private int characterId;
 }

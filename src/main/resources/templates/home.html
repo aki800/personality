@@ -12,7 +12,9 @@
 </head>
 <body>
 	<div th:fragment="home_contents">
-	  
+	  <nav class="navbar navbar-light"  th:each="chara: ${charas}">
+        <a class="navbar-brand" th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}" ></a>
+      </nav>	  
 	</div>
 </body>
 </html>
