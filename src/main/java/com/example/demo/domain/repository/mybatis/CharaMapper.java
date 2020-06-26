@@ -15,6 +15,11 @@ public interface CharaMapper {
 	public List<Chara> selectAll();
 	
 	@Select("SELECT *"
+	        + " FROM chara"
+			+ " WHERE id = #{tweetId}")
+	public Chara selectInTweet(int tweetId);	
+	
+	@Select("SELECT *"
 			+ " FROM chara"
 			+ " WHERE id = #{id}")
 	public Chara selectOne(int id);

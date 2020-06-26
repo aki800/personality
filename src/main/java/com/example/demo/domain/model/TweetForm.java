@@ -12,6 +12,7 @@ public class TweetForm {
 	private int id;
 	
 	@NotBlank
+	@Length(min = 10, max = 2000)
 	private String text;
 	
 	@NotNull

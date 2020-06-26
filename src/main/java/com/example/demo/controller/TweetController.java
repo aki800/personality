@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -80,6 +83,17 @@ public class TweetController {
 	public String getUserTweet(Model model, @PathVariable("id") int id) {
 		List<Tweet> tweets = tweetService.selectInAuthenticatedUser(id);
 		model.addAttribute("tweets", tweets);
+		
+		Set<Chara> charas = new HashSet<Chara>();
+		Chara chara = null;
+		for(int i=0; i < tweets.size(); i++) {
+		  chara = charaService.selectInTweet(tweets.get(i).getCharacterId());
+		  charas.add(chara);
+		}
+		model.addAttribute("charas", charas);
+		System.out.println(charas);
+		System.out.println(tweets);
+		
 		User user = userService.select(id);
 		model.addAttribute("user", user);
 		model.addAttribute("contents", "/tweet/userTweet :: userTweet_contents");		

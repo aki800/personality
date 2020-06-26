@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,7 +37,25 @@ CharaService charaService;
 		
 		List<Chara> charas = charaService.selectAll();
 		model.addAttribute("charas", charas);
-	
+		
+		List<Tweet> tweetFromDb = new ArrayList<Tweet>();
+		List<Tweet> tweets = new ArrayList<Tweet>();
+		for(int i=1; i<=charas.size(); i++) {
+		  tweetFromDb = tweetService.selectInCreatedAt(i);
+		
+		  if(tweetFromDb.size() > 0) {
+			for(int s=0; s < tweetFromDb.size(); s++) {
+				String initialText = tweetFromDb.get(s).getText();
+				String omittedText = initialText.substring(0, 9);
+			    tweetFromDb.get(s).setText(omittedText);			
+			  
+			}
+		  }
+		  tweets.addAll(tweetFromDb);
+		}
+		
+		model.addAttribute("tweets", tweets);
+		
 		model.addAttribute("contents", "/home :: home_contents");
 		return "homeLayout";
 		

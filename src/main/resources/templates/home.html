@@ -12,9 +12,22 @@
 </head>
 <body>
 	<div th:fragment="home_contents">
-	  <nav class="navbar navbar-light"  th:each="chara: ${charas}">
-        <a class="navbar-brand" th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}" ></a>
-      </nav>	  
+	  <div class="mx-auto" style="width: 200px;">
+	    <h1>お悩み一覧</h1>
+	  </div>
+	  <div class="container container-m">
+	  <div class="card-columns">
+	  <div class="card" style="width: 18rem; height: 14rem;" th:each="chara: ${charas}">
+	    <div class="card-body">
+		  <a class="navbar-brand" th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}" ></a>    
+		  <h6 class="card-subtitle mb-2 text-muted">最新の投稿</h6>
+		  <div th:each="tweet: ${tweets}">
+		  <a th:href="@{'/tweetDetail/' + ${tweet.id}}" class="card-link" th:if="${chara.id} == ${tweet.characterId}" th:text="${tweet.text} + ・・・">Card link</a> 
+		  </div>
+	    </div>
+	 </div>
+	 </div>
+	 </div>
 	</div>
 </body>
 </html>

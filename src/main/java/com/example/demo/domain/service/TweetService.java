@@ -34,6 +34,10 @@ public class TweetService {
 		return tweetMapper.selectOne(id);
 	}
 	
+	public List<Tweet> selectInCreatedAt(int i) {
+		return tweetMapper.selectInCreatedAt(i);
+	}
+	
 	public boolean update(Tweet tweet) {
 		return tweetMapper.update(tweet);
 	}

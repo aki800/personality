@@ -20,6 +20,10 @@ public class CharaService {
 		return charaMapper.selectAll();
 	}
 	
+	public Chara selectInTweet(int tweetId) {
+		return charaMapper.selectInTweet(tweetId);
+	}
+	
 	public Chara selectOne(int id) {
 		return charaMapper.selectOne(id);
 	}

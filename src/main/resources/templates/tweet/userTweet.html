@@ -14,13 +14,12 @@
 	  </thead>
 	  <tbody>
 	    <tr  th:each="tweet: ${tweets}">
-	      <td th:text="${tweet.text}" />
+	     <td th:each="chara: ${charas}"   th:if="${tweet.characterId} == ${chara.id}" >
+	      <a th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}"></a>
+	     </td>
 	     <td>
-	       <a class="btn btn-primary" th:href="@{'/tweetDetail/' + ${tweet.id}}" role="button">詳細</a>
-	     </td>	      
-	     <td>
-	       <a class="btn btn-primary" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a>
-	     </td>	     
+	       <a th:href="@{'/tweetDetail/' + ${tweet.id}}" th:text="${tweet.text}"></a>
+	     </td>
 	    </tr>
 	  </tbody>
 	</table>
