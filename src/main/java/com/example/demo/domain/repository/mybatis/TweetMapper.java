@@ -27,7 +27,9 @@ public interface TweetMapper {
 	public boolean insert(Tweet tweet);
 	
 	@Select("SELECT id,"
-	        + " text"
+	        + " text,"
+			+ " user_id AS userId,"
+	        + " character_id AS characterId"
 	        + " FROM tweet"
 	        + " WHERE user_id = #{id}")
 	public List<Tweet> selectInAuthenticatedUser(int id);
@@ -39,7 +41,16 @@ public interface TweetMapper {
 	        + " FROM tweet"
 	        + " WHERE character_id = #{id}")
 	public List<Tweet> selectInCharacter(int id);
-	
+
+	@Select("SELECT id,"
+			+ " text,"
+			+ " user_id AS userId,"
+			+ " character_id AS characterId"			
+	        + " FROM tweet"
+			+ " WHERE character_id = #{i}"
+	        + " order by created_at desc"
+	        + " limit 3")
+	public List<Tweet> selectInCreatedAt(int i);	
 	
 	@Select("SELECT id,"
 			+ " text,"
