@@ -2,14 +2,17 @@ package com.example.demo.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.domain.model.User;
 import com.example.demo.domain.model.Chara;
@@ -47,20 +50,45 @@ CharaService charaService;
 			for(int s=0; s < tweetFromDb.size(); s++) {
 				String initialText = tweetFromDb.get(s).getText();
 				String omittedText = initialText.substring(0, 9);
-			    tweetFromDb.get(s).setText(omittedText);			
-			  
+			    tweetFromDb.get(s).setText(omittedText);						  
 			}
 		  }
 		  tweets.addAll(tweetFromDb);
-		}
+		}		
+		model.addAttribute("tweets", tweets);
+				
+		model.addAttribute("contents", "/home :: home_contents");
+		return "homeLayout";				
+	}
+	
+	@PostMapping("/tweetSearch")
+	public String postTweet(@RequestParam("keyword")String keyword, Model model, Principal principal) {
+		String[] splitKeyword = keyword.split("　");
 		
+		List<Tweet> tweets = tweetService.selectInKeyword(splitKeyword);
 		model.addAttribute("tweets", tweets);
 		
-		model.addAttribute("contents", "/home :: home_contents");
-		return "homeLayout";
-		
+		return getTweetSearch(model, tweets, principal);
 		
 	}
+	
+	@GetMapping("/tweetSearch")
+	public String getTweetSearch(Model model, List<Tweet> tweets, Principal principal) {
+	
+	Set<Chara> charas = new HashSet<Chara>();
+	Chara chara = null;
+	for(int i=0; i < tweets.size(); i++) {
+	  chara = charaService.selectInTweet(tweets.get(i).getCharacterId());
+	  charas.add(chara);
+	}
+	
+	model.addAttribute("charas", charas);		
+	User user = userService.select(principal.getName());
+	model.addAttribute("user", user);
+	model.addAttribute("contents", "/tweet/tweetSearch :: tweetSearch_contents");
+	return "homeLayout";					
+	}
+	
 	
 	@GetMapping("/charaTweet/{id}")
 	public String getCharaTweet(Model model, Principal principal, @PathVariable("id") int id) {

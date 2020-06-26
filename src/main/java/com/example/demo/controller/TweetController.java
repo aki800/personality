@@ -47,7 +47,6 @@ public class TweetController {
 		
 		List<Chara> characters = charaService.selectAll();
 		model.addAttribute("characters", characters);
-		System.out.println(characters);
 		
 		model.addAttribute("contents", "/tweet/tweetCreate :: tweetCreate_contents");
 		return "homeLayout";
@@ -60,7 +59,6 @@ public class TweetController {
 	  if(bindingResult.hasErrors()) {
 		return getTweetCreate(form, model, principal);
 	  }
-	  System.out.println(form);
 	  
 	  Tweet tweet = new Tweet();
 	  
@@ -91,8 +89,6 @@ public class TweetController {
 		  charas.add(chara);
 		}
 		model.addAttribute("charas", charas);
-		System.out.println(charas);
-		System.out.println(tweets);
 		
 		User user = userService.select(id);
 		model.addAttribute("user", user);
@@ -262,5 +258,4 @@ public class TweetController {
 		}
 	}
 	
-
 }

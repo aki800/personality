@@ -28,15 +28,19 @@ public class TweetService {
 	public List<Tweet> selectInCharacter(int id) {
 		return tweetMapper.selectInCharacter(id);
 	}
+
+	public List<Tweet> selectInCreatedAt(int i) {
+		return tweetMapper.selectInCreatedAt(i);
+	}
 	
+	public List<Tweet> selectInKeyword(String[] keywords) {
+		return tweetMapper.selectInKeyword(keywords);
+	}
 	
 	public Tweet selectOne(int id) {
 		return tweetMapper.selectOne(id);
 	}
 	
-	public List<Tweet> selectInCreatedAt(int i) {
-		return tweetMapper.selectInCreatedAt(i);
-	}
 	
 	public boolean update(Tweet tweet) {
 		return tweetMapper.update(tweet);

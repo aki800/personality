@@ -6,15 +6,9 @@
    <resultMap type="com.example.demo.domain.model.Tweet" id="tweet">
 	  <id column="id" property="id" />
 	  <result column="text" property="text" />
-	  <result column="authorities_id" property="authorities_id" />
+	  <result column="authorities_id" property="authoritiesId" />
+	  <result column="character_id" property="characterId" />
    </resultMap>
 
-   <insert id="insert" parameterType="com.example.demo.domain.model.Tweet">
-        INSERT INTO tweet (
-            text,
-            authorities_id)
-        VALUES (
-            #{text},
-            #{id})
-    </insert>
 </mapper>
+
