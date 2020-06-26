@@ -51,6 +51,19 @@ public interface TweetMapper {
 	        + " order by created_at desc"
 	        + " limit 3")
 	public List<Tweet> selectInCreatedAt(int i);	
+
+	@Select("<script>"
+			+ "SELECT id,"
+			+ " text,"
+			+ " user_id AS userId,"
+			+ " character_id AS characterId"			
+	        + " FROM tweet"
+			+ " WHERE"
+			+ "<foreach item=\"array\" index=\"array.length\" collection=\"array\" separator=\"AND\">"
+			+ " text LIKE CONCAT('%', #{array} , '%')"
+			+ "</foreach>"
+	        + "</script>")
+	public List<Tweet> selectInKeyword(String[] array);	
 	
 	@Select("SELECT id,"
 			+ " text,"
