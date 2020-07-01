@@ -12,10 +12,12 @@
       </div>
        <div class="h-auto d-inline-block" style="width: 500px; background-color: rgba(0,0,255,.1)">
        　　<p th:text=${tweet.text} />  
-           <a class="btn btn-primary" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a>    
+          <div th:if="${user} != null">
+             <a class="btn btn-primary" th:if="${user.id} == ${tweet.userId}" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a> 
+          </div>  
        </div>
        <label class="text-info" th:text="${result}">結果表示</label>
-       <form method="post" th:action="@{/tweetDetail}" th:object="${commentForm}">
+       <form method="post" th:if="${user} != null" th:action="@{/tweetDetail}" th:object="${commentForm}">
 		  <div class="form-group">
 		    <label for="exampleInputEmail1">コメント</label>
 		    <textarea class="form-control" rows="5" th:field="*{text}"></textarea>
@@ -38,8 +40,8 @@
 		  <tbody>
 		    <tr  th:each="comment: ${comments}">
 		      <td th:text="${comment.text}" />
-		      <td>
-			      <a class="btn btn-primary" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
+		      <td th:if="${user} != null">
+			      <a class="btn btn-primary" th:if="${user.id} == ${comment.userId}" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
 		      </td>  		           
 		    </tr>
 		  </tbody>

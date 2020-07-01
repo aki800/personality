@@ -47,6 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		.antMatchers("/css/**").permitAll()
 		.antMatchers("/login").permitAll()
 		.antMatchers("/signup").permitAll()
+		.antMatchers("/").permitAll()
+		.antMatchers("/charaTweet/**").permitAll()
+		.antMatchers("/CommentEdit/**").permitAll()
+		.antMatchers("/tweetDetail/**").permitAll()
+		.antMatchers("/tweetSearch/**").permitAll()
 		.anyRequest().authenticated();
 		
 		http.formLogin()
@@ -55,12 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		.failureUrl("/login")
 		.usernameParameter("email")
 		.passwordParameter("password")
-		.defaultSuccessUrl("/home", true);
+		.defaultSuccessUrl("/", true);
 		
 		http.logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		.logoutUrl("/logout")
-		.logoutSuccessUrl("/login");
+		.logoutSuccessUrl("/");
 	}
 	
 	@Override

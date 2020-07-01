@@ -33,10 +33,12 @@ TweetService tweetService;
 @Autowired 
 CharaService charaService;
 
-	@GetMapping("/home")
+	@GetMapping("/")
 	public String getHome(Model model, Principal principal) {
+		if(principal != null) {
 		User user = userService.select(principal.getName());
 		model.addAttribute("user", user);
+		}
 		
 		List<Chara> charas = charaService.selectAll();
 		model.addAttribute("charas", charas);
@@ -44,7 +46,7 @@ CharaService charaService;
 		List<Tweet> tweetFromDb = new ArrayList<Tweet>();
 		List<Tweet> tweets = new ArrayList<Tweet>();
 		for(int i=1; i<=charas.size(); i++) {
-		  tweetFromDb = tweetService.selectInCreatedAt(i);
+		  tweetFromDb = tweetService.selectInCreatedAtLimited(i);
 		
 		  if(tweetFromDb.size() > 0) {
 			for(int s=0; s < tweetFromDb.size(); s++) {
@@ -74,26 +76,30 @@ CharaService charaService;
 	
 	@GetMapping("/tweetSearch")
 	public String getTweetSearch(Model model, List<Tweet> tweets, Principal principal) {
-	
-	Set<Chara> charas = new HashSet<Chara>();
-	Chara chara = null;
-	for(int i=0; i < tweets.size(); i++) {
-	  chara = charaService.selectInTweet(tweets.get(i).getCharacterId());
-	  charas.add(chara);
-	}
-	
-	model.addAttribute("charas", charas);		
-	User user = userService.select(principal.getName());
-	model.addAttribute("user", user);
-	model.addAttribute("contents", "/tweet/tweetSearch :: tweetSearch_contents");
-	return "homeLayout";					
+		if(principal != null) {
+		User user = userService.select(principal.getName());
+		model.addAttribute("user", user);
+		}
+		
+		Set<Chara> charas = new HashSet<Chara>();
+		Chara chara = null;
+		for(int i=0; i < tweets.size(); i++) {
+		  chara = charaService.selectInTweet(tweets.get(i).getCharacterId());
+		  charas.add(chara);
+		}		
+		model.addAttribute("charas", charas);	
+		
+		model.addAttribute("contents", "/tweet/tweetSearch :: tweetSearch_contents");
+		return "homeLayout";					
 	}
 	
 	
 	@GetMapping("/charaTweet/{id}")
 	public String getCharaTweet(Model model, Principal principal, @PathVariable("id") int id) {
+		if(principal != null) {
 		User user = userService.select(principal.getName());
 		model.addAttribute("user", user);
+		}
 		
 		Chara chara = charaService.selectOne(id);
 		model.addAttribute("chara", chara);
