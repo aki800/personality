@@ -69,16 +69,21 @@ public class TweetController {
 	  
 	  if(result == true) {
 		System.out.println("insert成功");
+		model.addAttribute("result", "お悩みを投稿しました");
+		return getUserTweet(model, user.getId());
 	  } else {
 		System.out.println("insert失敗");
+		model.addAttribute("result", "お悩みの投稿に失敗しました");
+		return "redirect:/tweetCreate";
 	  }
-	  
-	  return "redirect:/home";
 	  
 	}
 	
 	@GetMapping("/userTweet/{id}")
 	public String getUserTweet(Model model, @PathVariable("id") int id) {
+		User user = userService.select(id);
+		model.addAttribute("user", user);
+		
 		List<Tweet> tweets = tweetService.selectInAuthenticatedUser(id);
 		model.addAttribute("tweets", tweets);
 		
@@ -90,16 +95,16 @@ public class TweetController {
 		}
 		model.addAttribute("charas", charas);
 		
-		User user = userService.select(id);
-		model.addAttribute("user", user);
 		model.addAttribute("contents", "/tweet/userTweet :: userTweet_contents");		
 		return "myPageLayout";
 	}
 	
 	@GetMapping("/tweetDetail/{id}")
 	public String getTweetDetail(CommentForm form, Model model, @PathVariable("id") int id, Principal principal) {
+		if(principal != null) {
 		User user = userService.select(principal.getName());
-		model.addAttribute("user", user);	
+		model.addAttribute("user", user);
+		}
 		
 		Tweet tweet = tweetService.selectOne(id);
 		tweet.setId(id);

@@ -40,10 +40,7 @@
 		  </thead>
 		  <tbody>
 		    <tr th:each="comment: ${comments}">
-		      <td th:text="${comment.text}" />
-		      <td>
-			      <a class="btn btn-primary" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
-		      </td> 		           
+		      <td th:text="${comment.text}" />	           
 		    </tr>
 		  </tbody>
 	   </table>

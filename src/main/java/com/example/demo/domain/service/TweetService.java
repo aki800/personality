@@ -29,8 +29,8 @@ public class TweetService {
 		return tweetMapper.selectInCharacter(id);
 	}
 
-	public List<Tweet> selectInCreatedAt(int i) {
-		return tweetMapper.selectInCreatedAt(i);
+	public List<Tweet> selectInCreatedAtLimited(int i) {
+		return tweetMapper.selectInCreatedAtLimited(i);
 	}
 	
 	public List<Tweet> selectInKeyword(String[] keywords) {

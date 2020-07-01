@@ -31,7 +31,8 @@ public interface TweetMapper {
 			+ " user_id AS userId,"
 	        + " character_id AS characterId"
 	        + " FROM tweet"
-	        + " WHERE user_id = #{id}")
+	        + " WHERE user_id = #{id}"
+	        + " order by created_at desc")
 	public List<Tweet> selectInAuthenticatedUser(int id);
 
 	@Select("SELECT id,"
@@ -50,8 +51,8 @@ public interface TweetMapper {
 			+ " WHERE character_id = #{i}"
 	        + " order by created_at desc"
 	        + " limit 3")
-	public List<Tweet> selectInCreatedAt(int i);	
-
+	public List<Tweet> selectInCreatedAtLimited(int i);	
+	
 	@Select("<script>"
 			+ "SELECT id,"
 			+ " text,"

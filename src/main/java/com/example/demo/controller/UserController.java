@@ -149,7 +149,7 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String postLogin(Model model) {
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	@PostMapping("/logout")

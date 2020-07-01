@@ -20,7 +20,7 @@ xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
 
 	<header class="sticky-top">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <a class="navbar-brand" th:href="@{/home}">性格相談</a>
+		  <a class="navbar-brand" th:href="@{/}">性格相談</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -30,14 +30,21 @@ xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
 		      <li class="nav-item">
 		        <a class="nav-link" th:href="@{/tweetCreate}">お悩み投稿 <span class="sr-only">(current)</span></a>
 		      </li>
-		      <li class="nav-item">
+		      
+		      <li class="nav-item" th:if="${user} != null">
 		        <a class="nav-link" th:href="@{'/userTweet/' + ${user.id}}" th:text="${user.nickname}"></a>
 		      </li>
-		      <li class="nav-item">
+		      <li class="nav-item" th:if="${user} != null">
 			    <form method="post" th:action="@{/logout}">
 			    　<button class="btn btn-link" type="submit">ログアウト</button>
 			    </form>
 		      </li>
+		      
+		      <li class="nav-item" th:if="${user} == null">
+		        <a class="nav-link" th:href="@{/login}">ログイン</a>
+		      </li>
+		      
+		      
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/tweetSearch}">
 		      <input class="form-control mr-sm-2" type="search" placeholder="キーワード検索" aria-label="Search" name="keyword" th:value="${keyword_value}">
