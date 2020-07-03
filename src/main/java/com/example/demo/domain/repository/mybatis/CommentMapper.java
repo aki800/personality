@@ -28,7 +28,8 @@ public interface CommentMapper {
 			+ " tweet_id AS tweetId,"
 			+ " user_id AS userId"
 	        + " FROM comment"
-	        + " WHERE tweet_id = #{id}")
+	        + " WHERE tweet_id = #{id}"
+	        + " order by created_at desc")
 	public List<Comment> selectInOneTweet(int id);
 	
 	@Select("SELECT id,"

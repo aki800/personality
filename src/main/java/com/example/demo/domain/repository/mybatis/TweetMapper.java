@@ -5,12 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.domain.model.Tweet;
-import com.example.demo.domain.model.User;
 
 
 @Mapper
@@ -40,7 +38,8 @@ public interface TweetMapper {
 			+ " user_id AS userId,"
 			+ " character_id AS characterId"
 	        + " FROM tweet"
-	        + " WHERE character_id = #{id}")
+	        + " WHERE character_id = #{id}"
+	        + " order by created_at desc")
 	public List<Tweet> selectInCharacter(int id);
 
 	@Select("SELECT id,"

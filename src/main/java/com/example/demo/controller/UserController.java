@@ -118,7 +118,8 @@ public class UserController {
 		user.setBirthday(form.getBirthday());
 		user.setStatus(form.getStatus());
 		user.setProfile(form.getProfile());
-				
+		System.out.println(form.getBirthday());		
+		System.out.println(user.getBirthday());		
 		boolean result = userService.update(user);
 		if (result == true) {
 			model.addAttribute("result", "ユーザー情報を編集しました");

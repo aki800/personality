@@ -30,7 +30,6 @@ public interface UserMapper {
 	
 	@Select("SELECT id,"
 	+ " username AS email," //email
-	+ " authority AS password," //password
 	+ " nickname,"
 	+ " birthday,"
 	+ " status,"
