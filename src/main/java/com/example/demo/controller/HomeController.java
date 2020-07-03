@@ -66,7 +66,7 @@ CharaService charaService;
 	@PostMapping("/tweetSearch")
 	public String postTweet(@RequestParam("keyword")String keyword, Model model, Principal principal) {
 		String[] splitKeyword = keyword.split("　");
-		
+		System.out.println(splitKeyword);
 		List<Tweet> tweets = tweetService.selectInKeyword(splitKeyword);
 		model.addAttribute("tweets", tweets);
 		
