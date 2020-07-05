@@ -6,19 +6,17 @@
 </head>
 <body>
   <div th:fragment="tweetSearch_contents">
+  　<div class="mx-auto" style="width: 300px;">
+    <h2>検索結果</h2>
+    </div>
 	<table class="table">
-	  <thead>
-	    <tr>
-	      <th scope="col">検索結果</th>
-	    </tr>
-	  </thead>
 	  <tbody>
 	    <tr  th:each="tweet: ${tweets}">
         <td th:each="chara: ${charas}"   th:if="${tweet.characterId} == ${chara.id}" >
-	      <a th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}"></a>
+	      <a class="text-secondary" th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}"></a>
 	     </td> 
 	     <td>
-	       <a th:href="@{'/tweetDetail/' + ${tweet.id}}" th:text="${tweet.text}"></a>
+	       <a class="text-dark" th:href="@{'/tweetDetail/' + ${tweet.id}}" th:text="${tweet.text} + ・・・"></a>
 	     </td>
 	    </tr>
 	  </tbody>

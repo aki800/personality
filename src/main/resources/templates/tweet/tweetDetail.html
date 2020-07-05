@@ -10,10 +10,10 @@
       <div class="page-header">
         <h1 class="text-center">お悩み詳細</h1>
       </div>
-       <div class="h-auto d-inline-block" style="width: 500px; background-color: rgba(0,0,255,.1)">
+       <div class="h-auto d-inline-block border" style="width: 500px;">
        　　<p th:text=${tweet.text} />  
           <div th:if="${user} != null">
-             <a class="btn btn-primary" th:if="${user.id} == ${tweet.userId}" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a> 
+             <a class="btn btn-light" th:if="${user.id} == ${tweet.userId}" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a> 
           </div>  
        </div>
        <label class="text-info" th:text="${result}">結果表示</label>
@@ -28,7 +28,7 @@
 		  <div class="form-group">
             <input class="form-control" type="hidden" th:field="*{tweetId}"></input>
 		  </div>  		    
-		  <button type="submit" class="btn btn-primary" name="create">投稿</button>
+		  <button type="submit" class="btn btn-secondary" name="create">投稿</button>
 		</form> 
 		
 	   <table class="table">
@@ -41,7 +41,7 @@
 		    <tr  th:each="comment: ${comments}">
 		      <td th:text="${comment.text}" />
 		      <td th:if="${user} != null">
-			      <a class="btn btn-primary" th:if="${user.id} == ${comment.userId}" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
+			      <a class="btn btn-secondary" th:if="${user.id} == ${comment.userId}" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
 		      </td>  		           
 		    </tr>
 		  </tbody>

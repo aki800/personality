@@ -65,10 +65,20 @@ CharaService charaService;
 	
 	@PostMapping("/tweetSearch")
 	public String postTweet(@RequestParam("keyword")String keyword, Model model, Principal principal) {
+		List<Tweet> tweets = new ArrayList<Tweet>();
+		
 		String[] splitKeyword = keyword.split("　");
-		System.out.println(splitKeyword);
-		List<Tweet> tweets = tweetService.selectInKeyword(splitKeyword);
-		model.addAttribute("tweets", tweets);
+		List<Tweet> tweetFromDb = tweetService.selectInKeyword(splitKeyword);
+		
+		  if(tweetFromDb.size() > 0) {
+			for(int s=0; s < tweetFromDb.size(); s++) {
+				String initialText = tweetFromDb.get(s).getText();
+				String omittedText = initialText.substring(0, 49);
+			    tweetFromDb.get(s).setText(omittedText);						  
+			}
+		  }
+		 tweets.addAll(tweetFromDb);		  
+		 model.addAttribute("tweets", tweets);
 		
 		return getTweetSearch(model, tweets, principal);
 		
@@ -103,9 +113,19 @@ CharaService charaService;
 		
 		Chara chara = charaService.selectOne(id);
 		model.addAttribute("chara", chara);
-		
-		List<Tweet> tweets = tweetService.selectInCharacter(id);
-		model.addAttribute("tweets", tweets);
+
+		List<Tweet> tweets = new ArrayList<Tweet>();
+		List<Tweet> tweetFromDb = tweetService.selectInCharacter(id);
+			
+		  if(tweetFromDb.size() > 0) {
+			for(int s=0; s < tweetFromDb.size(); s++) {
+				String initialText = tweetFromDb.get(s).getText();
+				String omittedText = initialText.substring(0, 49);
+			    tweetFromDb.get(s).setText(omittedText);						  
+			}
+		  }
+		  tweets.addAll(tweetFromDb);		  
+		  model.addAttribute("tweets", tweets);
 		
 		model.addAttribute("contents", "/chara/charaTweet :: charaTweet_contents");
 		return "homeLayout";
