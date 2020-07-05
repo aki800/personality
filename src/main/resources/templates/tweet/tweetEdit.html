@@ -31,10 +31,10 @@
 	        <label class="form-check-label" th:text="${character.kind}"></label>
 	     </div>	     
        </div>              
-       <button class="btn btn-primary" type="submit" name="update">
+       <button class="btn btn-secondary" type="submit" name="update">
          編集
        </button>
-       <button class="btn btn-primary" type="submit" name="delete">
+       <button class="btn btn-secondary" type="submit" name="delete">
          削除
 	       </button>
       </form>
@@ -49,7 +49,7 @@
 		    <tr  th:each="comment: ${comments}">
 		      <td th:text="${comment.text}" />
 		      <td>
-			      <a class="btn btn-primary" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
+			      <a class="btn btn-secondary" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
 		      </td>  		           
 		    </tr>
 		  </tbody>

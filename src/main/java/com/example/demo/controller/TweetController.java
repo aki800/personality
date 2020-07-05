@@ -84,9 +84,20 @@ public class TweetController {
 		User user = userService.select(id);
 		model.addAttribute("user", user);
 		
-		List<Tweet> tweets = tweetService.selectInAuthenticatedUser(id);
-		model.addAttribute("tweets", tweets);
+		List<Tweet> tweets = new ArrayList<Tweet>();
+		List<Tweet> tweetFromDb = tweetService.selectInAuthenticatedUser(id);
 		
+		
+		  if(tweetFromDb.size() > 0) {
+			for(int s=0; s < tweetFromDb.size(); s++) {
+				String initialText = tweetFromDb.get(s).getText();
+				String omittedText = initialText.substring(0, 49);
+			    tweetFromDb.get(s).setText(omittedText);						  
+			}
+		  }
+		  tweets.addAll(tweetFromDb);		  
+		  model.addAttribute("tweets", tweets);
+		  
 		Set<Chara> charas = new HashSet<Chara>();
 		Chara chara = null;
 		for(int i=0; i < tweets.size(); i++) {
@@ -244,6 +255,7 @@ public class TweetController {
 		} else {
 			model.addAttribute("result", "投稿の編集に失敗しました");
 		}
+		
 		return getTweetEdit(form, model, tweet.getId(), principal);		
 		
 	}

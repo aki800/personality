@@ -36,7 +36,7 @@ xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
 		      </li>
 		      <li class="nav-item" th:if="${user} != null">
 			    <form method="post" th:action="@{/logout}">
-			    　<button class="btn btn-link" type="submit">ログアウト</button>
+			    　<button class="btn btn-link list-group-item-light" type="submit">ログアウト</button>
 			    </form>
 		      </li>
 		      
@@ -56,9 +56,4 @@ xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
 	
 	     <div th:include="__${contents}__"></div>
 	     
-	<footer class="footer">
-	  <div class="container">
-	    <p class="text-muted">Place sticky footer content here.</p>
-	  </div>
-	</footer>
 </body>

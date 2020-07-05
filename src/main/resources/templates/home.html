@@ -19,10 +19,10 @@
 	  <div class="card-columns">
 	  <div class="card" style="width: 18rem; height: 14rem;" th:each="chara: ${charas}">
 	    <div class="card-body">
-		  <a class="navbar-brand" th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}" ></a>    
+		  <a class="navbar-brand text-secondary" th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}" ></a>    
 		  <h6 class="card-subtitle mb-2 text-muted">最新の投稿</h6>
 		  <div th:each="tweet: ${tweets}">
-		  <a th:href="@{'/tweetDetail/' + ${tweet.id}}" class="card-link" th:if="${chara.id} == ${tweet.characterId}" th:text="${tweet.text} + ・・・">Card link</a> 
+		  <a th:href="@{'/tweetDetail/' + ${tweet.id}}" class="card-link text-dark" th:if="${chara.id} == ${tweet.characterId}" th:text="${tweet.text} + ・・・">Card link</a> 
 		  </div>
 	    </div>
 	 </div>

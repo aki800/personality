@@ -10,9 +10,9 @@
       <div class="page-header">
         <h1 class="text-center">お悩み詳細</h1>
       </div>
-       <div class="h-auto d-inline-block" style="width: 500px; background-color: rgba(0,0,255,.1)">
+       <div class="h-auto d-inline-block border" style="width: 500px;">
        　　<p th:text=${tweet.text} />  
-           <a class="btn btn-primary" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a>    
+           <a class="btn btn-light" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a>    
        </div>
        <form method="post" th:action="@{/commentEdit}" th:object="${commentForm}">
 	      <div class="form-group">
@@ -28,8 +28,8 @@
 		  <div class="form-group">
 		    <input class="form-control" type="hidden" th:field="*{tweetId}"></input>
 		  </div>		 		  		    
-		  <button type="submit" class="btn btn-primary" name="update">上書き</button>
-		 　<button type="submit" class="btn btn-primary" name="delete">削除</button>
+		  <button type="submit" class="btn btn-secondary" name="update">上書き</button>
+		 　<button type="submit" class="btn btn-secondary" name="delete">削除</button>
 		</form> 
 		
 	   <table class="table">
