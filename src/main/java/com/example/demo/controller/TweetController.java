@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,10 +62,12 @@ public class TweetController {
 	  }
 	  
 	  Tweet tweet = new Tweet();
+	  Date date = new Date();
 	  
 	  tweet.setText(form.getText());
 	  tweet.setUserId(user.getId());
 	  tweet.setCharacterId(form.getCharacterId());
+	  tweet.setCreatedAt(date);
 	  boolean result = tweetService.insert(tweet);
 	  
 	  if(result == true) {
@@ -91,7 +94,7 @@ public class TweetController {
 		  if(tweetFromDb.size() > 0) {
 			for(int s=0; s < tweetFromDb.size(); s++) {
 				String initialText = tweetFromDb.get(s).getText();
-				String omittedText = initialText.substring(0, 49);
+				String omittedText = initialText.substring(0, 9);
 			    tweetFromDb.get(s).setText(omittedText);						  
 			}
 		  }
@@ -142,11 +145,12 @@ public class TweetController {
 		 }			
 		User user = userService.select(principal.getName());
 		
-		Comment comment = new Comment();		
+		Comment comment = new Comment();
+		Date date = new Date();
 		comment.setText(form.getText());
 		comment.setTweetId(form.getTweetId());
 		comment.setUserId(user.getId());
-			
+		comment.setCreatedAt(date);	
 		System.out.println(comment);
 		boolean result = commentService.insert(comment);
 		  if(result == true) {

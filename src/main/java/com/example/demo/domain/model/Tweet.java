@@ -8,8 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -31,5 +35,9 @@ public class Tweet {
 	
 	@Column(name = "character_id")
 	private Integer characterId;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_at")
+	private Date createdAt;
 	
 }

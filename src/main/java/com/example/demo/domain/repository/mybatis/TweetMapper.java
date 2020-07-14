@@ -17,11 +17,13 @@ public interface TweetMapper {
 	@Insert("INSERT INTO tweet ("
 			+ "text,"
 			+ " user_id,"
-			+ " character_id)"
+			+ " character_id,"
+			+ " created_at)"
 			+ " VALUES ("
 			+ " #{text},"
 			+ " #{userId},"
-			+ " #{characterId})")
+			+ " #{characterId},"
+			+ " #{createdAt})")
 	public boolean insert(Tweet tweet);
 	
 	@Select("SELECT id,"
