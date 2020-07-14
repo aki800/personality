@@ -16,11 +16,13 @@ public interface CommentMapper {
 	@Insert("INSERT INTO comment ("
 			+ "text,"
 			+ " tweet_id,"
-			+ " user_id)"
+			+ " user_id,"
+			+ " created_at)"
 			+ " VALUES ("
 			+ " #{text},"
 			+ " #{tweetId},"
-			+ " #{userId})")
+			+ " #{userId},"
+			+ " #{createdAt})")
 	public boolean insert(Comment comment);
 	
 	@Select("SELECT id,"
