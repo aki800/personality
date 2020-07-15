@@ -73,7 +73,7 @@ CharaService charaService;
 		  if(tweetFromDb.size() > 0) {
 			for(int s=0; s < tweetFromDb.size(); s++) {
 				String initialText = tweetFromDb.get(s).getText();
-				String omittedText = initialText.substring(0, 49);
+				String omittedText = initialText.substring(0, 9);
 			    tweetFromDb.get(s).setText(omittedText);						  
 			}
 		  }
@@ -120,7 +120,7 @@ CharaService charaService;
 		  if(tweetFromDb.size() > 0) {
 			for(int s=0; s < tweetFromDb.size(); s++) {
 				String initialText = tweetFromDb.get(s).getText();
-				String omittedText = initialText.substring(0, 49);
+				String omittedText = initialText.substring(0, 9);
 			    tweetFromDb.get(s).setText(omittedText);						  
 			}
 		  }
