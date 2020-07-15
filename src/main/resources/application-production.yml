@@ -1,0 +1,11 @@
+spring:
+  profiles: production
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    initialization-mode: always
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    data: classpath:data.sql 

@@ -1,0 +1,13 @@
+spring:
+  profiles: dev
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    initialization-mode: always   
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/personality
+    username: dbuser
+    password: sanksn
+    data: classpath:data.sql 
+  
