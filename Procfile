@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -Dfile.encoding=UTF-8 -jar target/*.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/*.jar
