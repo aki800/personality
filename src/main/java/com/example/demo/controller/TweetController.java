@@ -49,7 +49,7 @@ public class TweetController {
 		List<Chara> characters = charaService.selectAll();
 		model.addAttribute("characters", characters);
 		
-		model.addAttribute("contents", "/tweet/tweetCreate :: tweetCreate_contents");
+		model.addAttribute("contents", "tweet/tweetCreate :: tweetCreate_contents");
 		return "tweet/tweetCreate";
 	}
 	
