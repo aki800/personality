@@ -5,20 +5,20 @@
 <title>投稿作成</title>
 </head>
 <body>
-  <div th:fragment="tweetCreate_contents">
+<!--   <div th:fragment="tweetCreate_contents"> -->
      <div class="mx-auto" style="width: 500px;">
       <div class="page-header">
         <h1 class="text-center">お悩み投稿</h1>
       </div>
       <label class="text-info" th:text="${result}">結果表示</label>      
- <!--      <form method="post" th:action="@{/tweetCreate}" th:object="${tweetForm}">
+      <form method="post" th:action="@{/tweetCreate}" th:object="${tweetForm}">
         <div class="form-group">
           <textarea class="form-control" rows="10" th:field="*{text}"></textarea>
           <span class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">
 	        text error
 	      </span>
-        </div> -->
-   <!--      <div class="form-group">
+        </div>
+        <div class="form-group">
           <label for="checkboxCharacter">どの性格の悩みに近いですか？</label></br>
           <span class="text-danger" th:if="${#fields.hasErrors('characterId')}" th:errors="*{characterId}">
 	       characterId error
@@ -27,15 +27,15 @@
 	        <input class="form-check-input" type="radio" id="inlineRadio1" th:value="${character.id}" th:field="*{characterId}">
 	        <label class="form-check-label" th:text="${character.kind}"></label>
 	     </div>	     
-       </div>       -->
-  <!--       <div class="mx-auto" style="width: 100px;">
+       </div>      
+        <div class="mx-auto" style="width: 100px;">
 	       <button class="btn btn-secondary" type="submit">
 	         投稿
 	       </button>
         </div>
-      </form> -->
+      </form>
     </div>
-  </div>
+ <!--  </div> -->
   
 </body>
 </html>
