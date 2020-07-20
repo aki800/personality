@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.domain.model.Comment;
 import com.example.demo.domain.model.CommentForm;
-import com.example.demo.domain.model.GroupOrder;
 import com.example.demo.domain.model.Tweet;
 import com.example.demo.domain.model.TweetForm;
 import com.example.demo.domain.model.User;
@@ -213,7 +212,6 @@ public class TweetController {
 		
 		if (result == true) {
 			model.addAttribute("result", "コメントを削除しました");
-			User user = userService.select(principal.getName());
 			return getTweetDetail(form, model, form.getTweetId(), principal);
 		} else {
 			model.addAttribute("result", "コメントの削除に失敗しました");
