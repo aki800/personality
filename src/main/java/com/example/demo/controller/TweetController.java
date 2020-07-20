@@ -109,7 +109,7 @@ public class TweetController {
 		}
 		model.addAttribute("charas", charas);
 		
-		model.addAttribute("contents", "/tweet/userTweet :: userTweet_contents");		
+		model.addAttribute("contents", "tweet/userTweet :: userTweet_contents");		
 		return "myPageLayout";
 	}
 	
@@ -132,7 +132,7 @@ public class TweetController {
 		model.addAttribute("comments", comments);		
 		
 		
-		model.addAttribute("contents", "/tweet/tweetDetail :: tweetDetail_contents");		
+		model.addAttribute("contents", "tweet/tweetDetail :: tweetDetail_contents");		
 		return "homeLayout";
 		
 	}	
@@ -183,7 +183,7 @@ public class TweetController {
 		//コメント一覧を表示
 		List<Comment> comments = commentService.selectInOneTweet(comment.getTweetId());
 		model.addAttribute("comments", comments);		
-		model.addAttribute("contents", "/tweet/commentEdit :: commentEdit_contents");		
+		model.addAttribute("contents", "tweet/commentEdit :: commentEdit_contents");		
 		return "homeLayout";
 		
 	}
@@ -239,7 +239,7 @@ public class TweetController {
 		List<Comment> comments = commentService.selectInOneTweet(id);
 		model.addAttribute("comments", comments);					
 		
-		model.addAttribute("contents", "/tweet/tweetEdit :: tweetEdit_contents");		
+		model.addAttribute("contents", "tweet/tweetEdit :: tweetEdit_contents");		
 		return "homeLayout";
 	}		
 	
