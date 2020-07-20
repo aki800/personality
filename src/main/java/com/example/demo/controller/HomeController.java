@@ -59,7 +59,7 @@ CharaService charaService;
 		}		
 		model.addAttribute("tweets", tweets);
 				
-		model.addAttribute("contents", "/home :: home_contents");
+		model.addAttribute("contents", "home :: home_contents");
 		return "homeLayout";				
 	}
 	
@@ -99,7 +99,7 @@ CharaService charaService;
 		}		
 		model.addAttribute("charas", charas);	
 		
-		model.addAttribute("contents", "/tweet/tweetSearch :: tweetSearch_contents");
+		model.addAttribute("contents", "tweet/tweetSearch :: tweetSearch_contents");
 		return "homeLayout";					
 	}
 	
@@ -127,7 +127,7 @@ CharaService charaService;
 		  tweets.addAll(tweetFromDb);		  
 		  model.addAttribute("tweets", tweets);
 		
-		model.addAttribute("contents", "/chara/charaTweet :: charaTweet_contents");
+		model.addAttribute("contents", "chara/charaTweet :: charaTweet_contents");
 		return "homeLayout";
 		
 	}
