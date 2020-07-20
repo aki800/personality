@@ -2,7 +2,7 @@ spring:
   profiles: production
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   datasource:
     initialization-mode: always
     url: ${JDBC_DATABASE_URL}
