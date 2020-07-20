@@ -50,7 +50,7 @@ public class TweetController {
 		model.addAttribute("characters", characters);
 		
 		model.addAttribute("contents", "tweet/tweetCreate :: tweetCreate_contents");
-		return "tweet/tweetCreate";
+		return "homeLayout";
 	}
 	
 	@PostMapping("/tweetCreate")
