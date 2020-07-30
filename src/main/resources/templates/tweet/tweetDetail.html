@@ -6,47 +6,57 @@
 </head>
 <body>
  <div th:fragment="tweetDetail_contents">
-    <div class="mx-auto" style="width: 500px;">
-      <div class="page-header">
-        <h1 class="text-center">お悩み詳細</h1>
-      </div>
-       <div class="h-auto d-inline-block border" style="width: 500px;">
-       　　<p th:text=${tweet.text} />  
-          <div th:if="${user} != null">
-             <a class="btn btn-light" th:if="${user.id} == ${tweet.userId}" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a> 
-          </div>  
-       </div>
-       <label class="text-info" th:text="${result}">結果表示</label>
-       <form method="post" th:if="${user} != null" th:action="@{/tweetDetail}" th:object="${commentForm}">
-		  <div class="form-group">
-		    <label for="exampleInputEmail1">コメント</label>
-		    <textarea class="form-control" rows="5" th:field="*{text}"></textarea>
-            <span class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">
-	          text error
-	        </span>		    
+    <div class="tweetDetail-content wrapper">
+      <article>
+        <p class="category-name">カテゴリー名</p>
+        <div class="user-tweet">
+          <img src="../../../image/イッヌ.jpg" alt="プロ画像（仮）">
+          <div class="tweet-info">
+            <p th:text=${tweet.text} />  
+            <div th:if="${user} != null">
+              <a class="btn btn-secondary" th:if="${user.id} == ${tweet.userId}" th:href="@{'/tweetEdit/' + ${tweet.id}}" role="button">編集</a> 
+            </div>  
+           </div>
+         </div>
+         
+         <div class="comment-input">
+           <label class="text-info" th:text="${result}">結果表示</label>
+           <form method="post" th:if="${user} != null" th:action="@{/tweetDetail}" th:object="${commentForm}">
+		     <p>コメント</p>
+		     <textarea id="comment" rows="5" th:field="*{text}"></textarea>
+             <span class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">
+	           text error
+	         </span>		    
+             <input type="hidden" th:field="*{tweetId}"></input>  		    
+		     <button type="submit" class="btn btn-primary" name="create">投稿</button>
+		    </form> 
 		  </div>
-		  <div class="form-group">
-            <input class="form-control" type="hidden" th:field="*{tweetId}"></input>
-		  </div>  		    
-		  <button type="submit" class="btn btn-secondary" name="create">投稿</button>
-		</form> 
-		
-	   <table class="table">
-		  <thead>
-		    <tr>
-		      <th scope="col">コメント一覧</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr  th:each="comment: ${comments}">
-		      <td th:text="${comment.text}" />
-		      <td th:if="${user} != null">
-			      <a class="btn btn-secondary" th:if="${user.id} == ${comment.userId}" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
-		      </td>  		           
-		    </tr>
-		  </tbody>
-	   </table>
-    </div> 
+			
+		  <table>
+			<thead>
+			  <tr>
+			    <th>コメント一覧</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr  th:each="comment: ${comments}">
+			    <td th:text="${comment.text}" />
+			    <td th:if="${user} != null">
+				  <a th:if="${user.id} == ${comment.userId}" th:href="@{'/commentEdit/' + ${comment.id}}" role="button">編集</a>  
+			    </td>  		           
+			  </tr>
+			</tbody>
+		 </table>
+	  </article> 
+	  
+	  <aside>
+	    <header><h2>カテゴリー別最新順</h2></header>
+	    <ul>
+	      <li></li>
+	    </ul>
+	    
+	  </aside>
+    </div>     
       
  </div>
 </body>
