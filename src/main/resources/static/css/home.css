@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+.home-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.home-content article {
+	width: 74%;
+	padding: 20px;
+	background-color: cornsilk;
+}
+.home-content article ul {
+	margin-top: 15px;
+}
+.home-content article ul li {
+	height: 50px;
+	border-bottom: 1px Tan solid;
+}
+.home-content article ul li a {
+	padding: 10px;
+	display: block;
+}
+.home-content aside {
+	width: 22%;
+	padding: 20px;
+	background-color: cornsilk;
+}
+.home-content aside ul {
+	margin-top: 15px;
+}
+.home-content aside ul li {
+	height: 50px;
+	border-bottom: 1px Tan solid;
+}
+.home-content aside ul li a {
+	padding: 10px;
+	display: block;
+}
+
+@media (max-width: 600px) {
+.home-content {
+	flex-direction: column;
+}
+.home-content article, .home-content aside {
+	width: 100%;
+}
+.home-content aside {
+	margin-top: 50px;
+}
+}

@@ -2,21 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"></meta>
-  
-  <link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
-  rel="stylesheet"></link>
-  <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-  <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
-  
+  <meta name="description" content="性格相談できるサイト">  
   <title>ホーム</title>
 </head>
 <body>
 	<div th:fragment="home_contents">
-	  <div class="mx-auto" style="width: 200px;">
-	    <h1>お悩み一覧</h1>
+	  <div class="home-content wrapper">
+	    <article>	    
+	      <header>
+	        <h2>最新の投稿</h2>
+	      </header>
+	      <ul>
+	       <li th:each="tweet: ${tweets}">
+	         <a th:href="@{'/tweetDetail/' + ${tweet.id}}" th:text="${tweet.text} + ・・・"></a>
+	       </li>
+	      </ul>
+	    </article>
+	    <aside>
+	      <h3>カテゴリー</h3>
+	        <ul>
+	          <li th:each="chara: ${charas}">
+	            <a th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}" ></a>     
+	          </li>
+	        </ul>
+	    </aside>  
 	  </div>
-	  <div class="container container-m">
-	  <div class="card-columns">
+	  
+	  
+	  
+<!-- 	  <div class="card-columns">
 	  <div class="card" style="width: 18rem; height: 14rem;" th:each="chara: ${charas}">
 	    <div class="card-body">
 		  <a class="navbar-brand text-secondary" th:href="@{'/charaTweet/' + ${chara.id}}" th:text="${chara.kind}" ></a>    
@@ -26,8 +40,7 @@
 		  </div>
 	    </div>
 	 </div>
+	 </div> -->
 	 </div>
-	 </div>
-	</div>
 </body>
 </html>

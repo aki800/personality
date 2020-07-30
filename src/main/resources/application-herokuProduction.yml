@@ -1,5 +1,5 @@
 spring:
-  profiles: production
+  profiles: herokuProduction
   jpa:
     hibernate:
       ddl-auto: update

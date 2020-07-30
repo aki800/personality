@@ -6,54 +6,91 @@ xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
 <head>
   <meta charset="UTF-8"></meta>
   
-  <link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
-  rel="stylesheet"></link>
+<!--   <link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
+  rel="stylesheet"></link> -->
+  <link href="https://unpkg.com/ress/dist/ress.min.css" rel="stylesheet">
+  <link th:href="@{/css/style.css}"
+  rel="stylesheet"></link>  
   <link th:href="@{/css/homeLayout.css}"
   rel="stylesheet"></link>
+  <link th:href="@{/css/home.css}"
+  rel="stylesheet"></link> 
+  <link th:href="@{/css/tweetDetail.css}"
+  rel="stylesheet"></link>  
+  
+  <!-- <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script> -->
   <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-  <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+  <!-- <script th:src="@{/js/homeLayout.js}" type="text/javascript"></script> -->
+  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+   integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+   
+   <!-- ログイン前でjsファイルとの連携がうまくいかないためここに記入 -->
+   <script>
+  'use strict';
+  $(document).ready(function() {
+  	$(window).resize(function() {				
+      	if (window.matchMedia('(max-width: 600px)').matches) {
+      		if ($('#open_nav').length == 0) {    		
+      		  $('.page-header').append('<div class="hamburger" id="open_nav"><i class="fas fa-bars"></i></div>');
+      		  $('body').append($('.page-header').find('.main-nav')[0]);
+      	  	  $('#open_nav').on('click', function() {
+      	  	  $('.page-header, .home-content, .main-nav').toggleClass('show');
+      	  	  });
+      		} 
+      		if($('.page-search').length == 0) {
+          	  $('.page-header').after('<div class="page-search"></div>')
+          	  $('.page-search').append($('.main-left').find('form')[0]);
+      		}
+      	} else {
+      		$('#open_nav').remove();
+      		$('.page-header').append($('body').find('.main-nav')[0]);
+      		$('.page-header .main-left').append($('.page-search').find('form')[0]);
+      		$('.page-search').remove(); 
+      	}      	
+      	
+  	});
+  	
+  });
+  </script>	     	       
   
   <title>ホーム</title>
 </head>
 
 <body>
 
-	<header class="sticky-top">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <a class="navbar-brand" th:href="@{/}">性格相談</a>
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		  </button>
-		
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item">
-		        <a class="nav-link" th:href="@{/tweetCreate}">お悩み投稿 <span class="sr-only">(current)</span></a>
-		      </li>
-		      
-		      <li class="nav-item" th:if="${user} != null">
-		        <a class="nav-link" th:href="@{'/userTweet/' + ${user.id}}" th:text="${user.nickname}"></a>
-		      </li>
-		      <li class="nav-item" th:if="${user} != null">
-			    <form method="post" th:action="@{/logout}">
-			    　<button class="btn btn-link list-group-item-light" type="submit">ログアウト</button>
-			    </form>
-		      </li>
-		      
-		      <li class="nav-item" th:if="${user} == null">
-		        <a class="nav-link" th:href="@{/login}">ログイン</a>
-		      </li>
-		      
-		      
-		    </ul>
-		    <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/tweetSearch}">
-		      <input class="form-control mr-sm-2" type="search" placeholder="キーワード検索" aria-label="Search" name="keyword" th:value="${keyword_value}">
-		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
-		    </form>    
-		  </div>
-		</nav>
-	</header>
+  <header class="page-header wrapper">
+    <div class="main-left">
+	  <h1><a th:href="@{/}">性格相談</a></h1>	
+	  <form method="post" th:action="@{/tweetSearch}">
+	    <input type="search" placeholder="キーワード検索" name="keyword" th:value="${keyword_value}">
+		<button type="submit">検索</button>
+      </form>
+	</div>       	  		
+	<nav class="main-nav">
+	  <ul>
+        <li>
+		  <a th:href="@{/tweetCreate}">お悩み投稿</a>
+		</li>		      
+		<li th:if="${user} != null">
+		  <a th:href="@{'/userTweet/' + ${user.id}}" th:text="${user.nickname}"></a>
+		</li>
+		<li th:if="${user} != null">
+		  <form method="post" th:action="@{/logout}">
+		    <button type="submit">ログアウト</button>
+		  </form>
+		</li>		      
+		<li th:if="${user} == null">
+		  <a th:href="@{/login}">ログイン</a>
+		</li>		      
+      </ul>
+	</nav>
+  </header>
 	
 	     <div th:include="__${contents}__"></div>
 	     
+  <footer>
+    <div class="wrapper">
+      <p><small>&copy; 2020 性格相談サイト</small></p>
+    </div>  
+  </footer>
 </body>

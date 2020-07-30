@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+.tweetDetail-content {
+	 display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.tweetDetail-content article {
+	width: 64%;
+	padding: 20px;
+	background-color: cornsilk;
+	
+}
+.tweetDetail-content article .user-tweet {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 15px;
+	border: 1px Tan solid;
+	
+}
+.tweetDetail-content article .user-tweet img {
+	width: 10%;
+}
+.tweetDetail-content article .user-tweet .tweet-info  {	
+	width: 84%;
+    display: flex;
+	justify-content: space-between;
+	padding: 20px;
+	background-color: #fff;
+}
+.tweetDetail-content article .user-tweet .tweet-info p {
+	width: 80%;
+}
+.tweetDetail-content article .comment-input {
+	margin-top: 50px;
+	background-color: #fff;
+}
+.tweetDetail-content article .comment-input form {
+	margin-top: 15px;
+}
+.tweetDetail-content article .comment-input form textarea {
+	width: 100%;
+	height: 200px;
+	border: 1px Tan solid;
+}
+.tweetDetail-content article .comment-input form button {
+
+}
+.tweetDetail-content article table {
+	width: 100%;
+	margin-top: 50px;
+	background-color: #fff;
+}
+.tweetDetail-content article table thead tr {
+	height: 50px;
+}
+.tweetDetail-content article table thead tr th {
+	width: 100%;
+}
+.tweetDetail-content article table tbody tr .text-comment {
+	width: 54px;
+}
+.tweetDetail-content aside {
+	width: 32%;
+	padding: 20px;
+	background-color: cornsilk;
+}
